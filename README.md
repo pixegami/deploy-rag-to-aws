@@ -110,3 +110,17 @@ curl -X 'POST' \
   "query_text": "How much does a landing page for a small business cost?"
 }'
 ```
+
+## Deploy to AWS
+
+I have put all the AWS CDK files into `rag-cdk-infra/`. Go into the folder and install the Node dependencies.
+
+```sh
+npm install
+```
+
+Then run this command to deploy it (assuming you have AWS CLI already set up, and AWS CDK already bootstrapped). I recommend deploying to `us-east-1` to start with (since all the AI models are there).
+
+```sh
+cdk deploy
+```
