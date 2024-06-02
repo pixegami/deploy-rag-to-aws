@@ -1,6 +1,7 @@
 *.pyc
 **/chroma
 env/
+.env
 
 # Some files generated for tutorial.
 original_reqs.txt
