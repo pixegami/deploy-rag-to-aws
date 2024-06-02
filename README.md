@@ -5,21 +5,22 @@
 ### Installing Requirements
 
 ```sh
-pip install -r requirements.txt
+pip install -r image/requirements.txt
 ```
 
 ### Generate the database
 
 ```sh
-# Execute from root directory.
+# Execute from image/ directory.
+cd image
 python populate_database.py --reset
 ```
 
 ### Running the app
 
 ```sh
-# Execute from src directory
-cd src
+# Execute from image/src directory
+cd image/src
 python rag_app/query_rag.py "how much does a landing page cost?"
 ```
 
@@ -35,7 +36,7 @@ Sources: ['src/data/source/galaxy-design-client-guide.pdf:1:0', 'src/data/source
 ### Starting FastAPI Server
 
 ```sh
-# From src directory.
+# From image/src directory.
 python app_api_handler.py
 ```
 
