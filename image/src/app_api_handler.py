@@ -1,4 +1,5 @@
 import os
+from typing import Optional
 import uvicorn
 import boto3
 import json
@@ -18,6 +19,7 @@ handler = Mangum(app)  # Entry point for AWS Lambda.
 
 class SubmitQueryRequest(BaseModel):
     query_text: str
+    user_id: Optional[str] = None
 
 
 @app.get("/")
@@ -45,7 +47,8 @@ def submit_query_endpoint(request: SubmitQueryRequest) -> QueryModel:
         )
 
     # Create the query item, and put it into the data-base.
-    new_query = QueryModel(query_text=request.query_text)
+    user_id = request.user_id if request.user_id else "nobody"
+    new_query = QueryModel(query_text=request.query_text, user_id=user_id)
 
     if WORKER_LAMBDA_NAME:
         # Make an async call to the worker (the RAG/AI app).
