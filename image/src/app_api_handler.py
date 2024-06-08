@@ -36,6 +36,14 @@ def get_query_endpoint(query_id: str) -> QueryModel:
         raise HTTPException(status_code=404, detail=f"Query Not Found: {query_id}")
 
 
+@app.get("/list_query")
+def list_query_endpoint(user_id: str) -> list[QueryModel]:
+    ITEM_COUNT = 25
+    print(f"Listing queries for user: {user_id}")
+    query_items = QueryModel.list_items(user_id=user_id, count=ITEM_COUNT)
+    return query_items
+
+
 @app.post("/submit_query")
 def submit_query_endpoint(request: SubmitQueryRequest) -> QueryModel:
 
