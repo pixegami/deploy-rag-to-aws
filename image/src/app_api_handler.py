@@ -3,13 +3,14 @@ import uvicorn
 import boto3
 import json
 
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from mangum import Mangum
 from pydantic import BaseModel
 from query_model import QueryModel
 from rag_app.query_rag import query_rag
 
 WORKER_LAMBDA_NAME = os.environ.get("WORKER_LAMBDA_NAME", None)
+CHARACTER_LIMIT = 2000
 
 app = FastAPI()
 handler = Mangum(app)  # Entry point for AWS Lambda.
@@ -27,11 +28,22 @@ def index():
 @app.get("/get_query")
 def get_query_endpoint(query_id: str) -> QueryModel:
     query = QueryModel.get_item(query_id)
-    return query
+    if query:
+        return query
+    else:
+        raise HTTPException(status_code=404, detail=f"Query Not Found: {query_id}")
 
 
 @app.post("/submit_query")
 def submit_query_endpoint(request: SubmitQueryRequest) -> QueryModel:
+
+    # Check if the query is too long.
+    if len(request.query_text) > CHARACTER_LIMIT:
+        raise HTTPException(
+            status_code=400,
+            detail=f"Query is too long. Max character limit is {CHARACTER_LIMIT}",
+        )
+
     # Create the query item, and put it into the data-base.
     new_query = QueryModel(query_text=request.query_text)
 

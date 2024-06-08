@@ -111,6 +111,18 @@ curl -X 'POST' \
 }'
 ```
 
+## Unit Testing
+
+Once you have a server running locally on `localhost:8000`, you can run the unit tests in `test/` from the root folder. You'll need to have `pytest` installed (`pip install pytest`).
+
+```sh
+pytest  # Run all tests
+```
+
+```sh
+pytest -k test_can_submit_query -s  # Run a specific test. Print output.
+```
+
 ## Deploy to AWS
 
 I have put all the AWS CDK files into `rag-cdk-infra/`. Go into the folder and install the Node dependencies.
