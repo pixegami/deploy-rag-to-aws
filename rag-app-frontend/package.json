@@ -7,6 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
+    "generate-api-client": "openapi-generator-cli generate -i https://api.rag.pixegami.io/openapi.json -g typescript-fetch -o src/api-client"
   },
   "dependencies": {
     "react": "^18",

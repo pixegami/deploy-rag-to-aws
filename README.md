@@ -136,3 +136,33 @@ Then run this command to deploy it (assuming you have AWS CLI already set up, an
 ```sh
 cdk deploy
 ```
+
+## Front End
+
+### Install Tools to Generate API Client
+
+```sh
+npm install @openapitools/openapi-generator-cli -g
+```
+
+There is a command script in the package.json file to generate the client library for the API.
+
+```json
+{
+  "generate-api-client": "openapi-generator-cli generate -i http://0.0.0.0:8000/openapi.json -g typescript-fetch -o src/api-client"
+}
+```
+
+To use it, it will fetch the OpenAPI schema from `http://0.0.0.0:8000` (assuming it's a FastAPI server and makes it available). And generate a TypeScript client to `src/api-client`.
+
+We'll need to make sure it's generated each time.
+
+### Generate API Client
+
+Generate the client into `src/api-client/` first.
+
+```sh
+npm run generate-api-client
+```
+
+```
