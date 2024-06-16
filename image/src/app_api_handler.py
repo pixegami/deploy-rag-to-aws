@@ -5,6 +5,8 @@ import boto3
 import json
 
 from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
+
 from mangum import Mangum
 from pydantic import BaseModel
 from query_model import QueryModel
@@ -14,6 +16,16 @@ WORKER_LAMBDA_NAME = os.environ.get("WORKER_LAMBDA_NAME", None)
 CHARACTER_LIMIT = 2000
 
 app = FastAPI()
+
+# Configure CORS so that the frontend can access this API.
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Allows all origins
+    allow_credentials=True,
+    allow_methods=["*"],  # Allows all methods
+    allow_headers=["*"],  # Allows all headers
+)
+
 handler = Mangum(app)  # Entry point for AWS Lambda.
 
 
