@@ -165,4 +165,19 @@ Generate the client into `src/api-client/` first.
 npm run generate-api-client
 ```
 
+### Component Library
+
+Using shadcn/ui. I don't think you need to run this, it's already part of the project via Git — but here's what I had to run, just for reference.
+
+```sh
+npx shadcn-ui@latest init
+```
+
+Then install each component separately.
+
+```sh
+npx shadcn-ui@latest add button
+npx shadcn-ui@latest add textarea
+
+# etc...
 ```
