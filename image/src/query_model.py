@@ -14,7 +14,7 @@ GSI_INDEX_NAME = "queries_by_user_id"
 
 class QueryModel(BaseModel):
     query_id: str = Field(default_factory=lambda: uuid.uuid4().hex)
-    user_id: str
+    user_id: str = "nobody"
     create_time: int = Field(default_factory=lambda: int(time.time()))
     ttl: int = Field(default_factory=lambda: int(time.time() + TTL_EXPIRE_TIMESTAMP))
     query_text: str
