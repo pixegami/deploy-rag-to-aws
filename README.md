@@ -178,6 +178,6 @@ Then install each component separately.
 ```sh
 npx shadcn-ui@latest add button
 npx shadcn-ui@latest add textarea
-
-# etc...
+npx shadcn-ui@latest add card
+npx shadcn-ui@latest add skeleton
 ```
